@@ -1,4 +1,6 @@
 const qwerty = document.getElementById('qwerty');
+const qwertyDiv = document.querySelector('#qwerty');
+
 const phrase = document.getElementById('phrase');
 const phaseUl = phrase.querySelector('ul');
 let missed = 0;
@@ -36,13 +38,14 @@ function addPhraseToDisplay(arr) {
 
 //create check letter function
 function checkLetter(button) {
-    let letters = document.getElementsByClassName(letter);
+    let match = null;
+    const letters = document.getElementsByClassName("letter");
     for (let i = 0; i < letters.length; i += 1) {
-        if (letters[i] === button) {
+        if (letters[i].textContent === button.textContent) {
             letters[i].className = 'show';
-        } else {
-            missed += 1;
         }
+    return match;
+        
     }
 }
 
@@ -56,4 +59,15 @@ startGame.addEventListener('click', () => {
     const phrase = getRandomPhraseAsArray(phrases)
     addPhraseToDisplay(phrase);
     console.dir(phrase);
+});
+
+qwerty.addEventListener('click', (e) => {
+    if (e.target.tagName === "BUTTON"){
+        e.target.className = "chosen";
+        e.target.disable = true;
+
+        checkLetter(e.target)
+        console.log(e.target.textContent)
+    };
+    
 });
