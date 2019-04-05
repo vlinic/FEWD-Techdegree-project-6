@@ -40,16 +40,15 @@ const addPhraseToDisplay = (arr) => {
 }
 
 const checkLetter = (button) => {
-    // checks for letter matches
-      let match = null;
-      for (let i = 0; i < letter.length; i++) {
-          if (button.textContent === letter[i].textContent) {
-              letter[i].classList.add('show');
-              match = true;
-          }
-      }
-      return match;
-  }
+    let match = null;
+    for (let i = 0; i < letter.length; i++) {
+        if (button.textContent === letter[i].textContent) {
+            letter[i].classList.add('show');
+            match = true;
+        }
+    }
+    return match;
+}
 
 
 //Events
@@ -64,10 +63,10 @@ start.addEventListener('click', () => {
 
 qwerty.addEventListener('click', (e) => {
     // when user clicks a key to match with phrase
-      if (e.target.tagName === 'BUTTON') {
+    if (e.target.tagName === 'BUTTON') {
         e.target.classList.add('chosen');
-        e.target.disabled = true; 
+        e.target.disabled = true;
         let letterFound = checkLetter(e.target);
         console.dir(letterFound);
-      }
-    });
+    }
+});
