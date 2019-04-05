@@ -1,11 +1,15 @@
+//Variables
 const qwerty = document.getElementById('qwerty');
-const qwertyDiv = document.querySelector('#qwerty');
-
 const phrase = document.getElementById('phrase');
-const phaseUl = phrase.querySelector('ul');
 let missed = 0;
-const ovarlay = document.getElementById('overlay');
-const startGame = document.getElementsByClassName('btn__reset')[0];
+const start = document.getElementsByClassName('btn__reset')[0];
+const overlay = document.getElementById('overlay');
+const phaseUl = phrase.querySelector('ul');
+const letter = document.getElementsByClassName('letter');
+
+
+
+//Phrases
 
 const phrases = [
     'just do it',
@@ -15,16 +19,15 @@ const phrases = [
     'nothing else matters'
 ];
 
-//create function to get random phase array and then split it to single letters
-function getRandomPhraseAsArray(arr) {
-    const randomPhase = arr[Math.floor(Math.random() * arr.length)];
-    const letters = randomPhase.split("");
-    return letters;
+//Functions
+
+const getRandomPhraseAsArray = (arr) => {
+    let randomPhase = arr[Math.floor(Math.random() * arr.length)];
+    return randomPhase.split('');
 }
 
-//create function to add phase to display
-function addPhraseToDisplay(arr) {
-    for (let i = 0; i < arr.length; i += 1) {
+const addPhraseToDisplay = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
         let letter = arr[i];
         const li = document.createElement('li');
         if (letter === ' ') {
@@ -36,38 +39,35 @@ function addPhraseToDisplay(arr) {
     }
 }
 
-//create check letter function
-function checkLetter(button) {
-    let match = null;
-    const letters = document.getElementsByClassName("letter");
-    for (let i = 0; i < letters.length; i += 1) {
-        if (letters[i].textContent === button.textContent) {
-            letters[i].className = 'show';
-        }
-    return match;
-        
-    }
-}
-
-//create CheckWin function
-function CheckWin() { };
+const checkLetter = (button) => {
+    // checks for letter matches
+      let match = null;
+      for (let i = 0; i < letter.length; i++) {
+          if (button.textContent === letter[i].textContent) {
+              letter[i].classList.add('show');
+              match = true;
+          }
+      }
+      return match;
+  }
 
 
-startGame.addEventListener('click', () => {
+//Events
+
+start.addEventListener('click', () => {
     overlay.style.display = 'none';
-    //appand phase to screen
     const phrase = getRandomPhraseAsArray(phrases)
     addPhraseToDisplay(phrase);
-    console.dir(phrase);
+    console.log(phrase);
+    console.dir(phrase[1]);
 });
 
 qwerty.addEventListener('click', (e) => {
-    if (e.target.tagName === "BUTTON"){
-        e.target.className = "chosen";
-        e.target.disable = true;
-
-        checkLetter(e.target)
-        console.log(e.target.textContent)
-    };
-    
-});
+    // when user clicks a key to match with phrase
+      if (e.target.tagName === 'BUTTON') {
+        e.target.classList.add('chosen');
+        e.target.disabled = true; 
+        let letterFound = checkLetter(e.target);
+        console.dir(letterFound);
+      }
+    });
