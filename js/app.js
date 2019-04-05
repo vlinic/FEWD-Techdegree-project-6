@@ -29,11 +29,12 @@ const getRandomPhraseAsArray = (arr) => {
 const addPhraseToDisplay = (arr) => {
     for (let i = 0; i < arr.length; i++) {
         let letter = arr[i];
-        const li = document.createElement('li');
+        const li = document.createElement('li');        
         if (letter === ' ') {
             li.className = 'space';
-        } else {
+        } else {            
             li.className = 'letter';
+            li.textContent = letter;
         }
         phaseUl.appendChild(li);
     }
