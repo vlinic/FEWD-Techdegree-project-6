@@ -45,7 +45,7 @@ const checkLetter = (button) => {
     let match = null;
     for (let i = 0; i < letter.length; i++) {
         if (button.textContent === letter[i].textContent) {
-            letter[i].classList.add('show');            
+            letter[i].classList.add('show');
             match = true;
         }
     }
@@ -53,48 +53,50 @@ const checkLetter = (button) => {
 }
 
 const checkWin = () => {
-    if (show.length === letter.length){
+    if (show.length === letter.length) {
         overlay.style.display = '';
         overlay.classList.add('win');
-        title[0].textContent = "You won!";        
-
-    } else if (missed >= 5){
+        reset()
+    } else if (missed >= 5) {
         overlay.style.display = '';
         overlay.classList.add('lost');
         title[0].textContent = "You Lost";
-
+        reset();        
     }
+}
+
+const reset = () =>{
+    start.textContent = "Play Again"
+
+    start.addEventListener('click', () =>{
+        location.reload();        
+    }); 
 
 }
 
-
+const newPhrase = () => {
+    overlay.style.display = 'none';
+    const phrase = getRandomPhraseAsArray(phrases)
+    addPhraseToDisplay(phrase); 
+}
 
 //Events
 
-start.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    const phrase = getRandomPhraseAsArray(phrases)
-    addPhraseToDisplay(phrase);
-    console.log(phrase);
-    console.dir(phrase[1]);
-});
+start.addEventListener('click', newPhrase);       
 
-qwerty.addEventListener('click', (e) => {
-    // when user clicks a key to match with phrase
+qwerty.addEventListener('click', (e) => {    
     if (e.target.tagName === 'BUTTON') {
         e.target.classList.add('chosen');
         e.target.disabled = true;
 
         let letterFound = checkLetter(e.target);
 
-        if ( letterFound ){
+        if (letterFound) {
             checkWin();
-        }else{
+        } else {
             missed += 1;
-            tries[missed - 1 ].src= 'images/lostHeart.png';
-            checkWin(); 
-            
+            tries[missed - 1].src = 'images/lostHeart.png';
+            checkWin();
         }
-
     }
 });
