@@ -5,20 +5,22 @@ let missed = 0;
 const start = document.getElementsByClassName('btn__reset')[0];
 const overlay = document.getElementById('overlay');
 const phaseUl = phrase.querySelector('ul');
+const phaseli = phaseUl.querySelectorAll('li');
 const letter = document.getElementsByClassName('letter');
 const tries = document.querySelectorAll('.tries img');
 const show = document.getElementsByClassName('show');
 const title = document.getElementsByClassName('title');
 
 
+
 //Phrases
 
 const phrases = [
     'just do it',
-  //  'impossible is nothing',
-  //  'give me everything',
-  //  'world is not enough',
-  //  'nothing else matters'
+    'impossible is nothing',
+    'give me everything',
+    'world is not enough',
+    'nothing else matters'
 ];
 
 //Functions
@@ -62,39 +64,38 @@ const checkWin = () => {
         overlay.style.display = '';
         overlay.classList.add('lost');
         title[0].textContent = "You Lost";
-        reset();        
+        reset();
     }
 }
 const newPhrase = () => {
     overlay.style.display = 'none';
     const phrase = getRandomPhraseAsArray(phrases)
-    addPhraseToDisplay(phrase); 
+    addPhraseToDisplay(phrase);
 }
 
 
-const reset = () =>{
-    start.textContent = "Play Again"
-    start.addEventListener('click', ()=>{
-        missed = 0;
-        overlay.classList.remove('lost');
-        overlay.classList.remove('win');
-        phrase.removeChild(phaseUl);
-        
-        
-        
-        
-        
-    });
- 
+const reset = () => {
+    const button = document.getElementsByTagName('button');
+    start.textContent = "Play Again";
+    missed = 0;
+    phaseUl.querySelectorAll('li').forEach(el => el.remove());
+
+    for (let i = 0; i < button.length; i++) {
+        button[i].className = '';
+        button[i].disabled = false;
+    }
+
+    for (let i = 0; i < tries.length; i++) {
+        tries[i].src = 'images/liveHeart.png';
+    }
+
 }
-
-
 
 //Events
 
-start.addEventListener('click', newPhrase);       
+start.addEventListener('click', newPhrase);
 
-qwerty.addEventListener('click', (e) => {    
+qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         e.target.classList.add('chosen');
         e.target.disabled = true;
