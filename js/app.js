@@ -6,8 +6,9 @@ const start = document.getElementsByClassName('btn__reset')[0];
 const overlay = document.getElementById('overlay');
 const phaseUl = phrase.querySelector('ul');
 const letter = document.getElementsByClassName('letter');
-
-
+const tries = document.querySelectorAll('.tries img');
+const show = document.getElementsByClassName('show');
+const title = document.getElementsByClassName('title');
 
 //Phrases
 
@@ -44,14 +45,28 @@ const checkLetter = (button) => {
     let match = null;
     for (let i = 0; i < letter.length; i++) {
         if (button.textContent === letter[i].textContent) {
-            letter[i].classList.add('show');
+            letter[i].classList.add('show');            
             match = true;
         }
     }
     return match;
 }
 
-const checkWin = () =>
+const checkWin = () => {
+    if (show.length === letter.length){
+        overlay.style.display = '';
+        overlay.classList.add('win');
+        title[0].textContent = "You won!";        
+
+    } else if (missed >= 5){
+        overlay.style.display = '';
+        overlay.classList.add('lost');
+        title[0].textContent = "You Lost";
+
+    }
+
+}
+
 
 
 //Events
@@ -71,6 +86,15 @@ qwerty.addEventListener('click', (e) => {
         e.target.disabled = true;
 
         let letterFound = checkLetter(e.target);
+
+        if ( letterFound ){
+            checkWin();
+        }else{
+            missed += 1;
+            tries[missed - 1 ].src= 'images/lostHeart.png';
+            checkWin(); 
+            
+        }
 
     }
 });
