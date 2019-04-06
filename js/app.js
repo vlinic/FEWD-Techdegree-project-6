@@ -10,14 +10,15 @@ const tries = document.querySelectorAll('.tries img');
 const show = document.getElementsByClassName('show');
 const title = document.getElementsByClassName('title');
 
+
 //Phrases
 
 const phrases = [
     'just do it',
-    'impossible is nothing',
-    'give me everything',
-    'world is not enough',
-    'nothing else matters'
+  //  'impossible is nothing',
+  //  'give me everything',
+  //  'world is not enough',
+  //  'nothing else matters'
 ];
 
 //Functions
@@ -64,21 +65,30 @@ const checkWin = () => {
         reset();        
     }
 }
-
-const reset = () =>{
-    start.textContent = "Play Again"
-
-    start.addEventListener('click', () =>{
-        location.reload();        
-    }); 
-
-}
-
 const newPhrase = () => {
     overlay.style.display = 'none';
     const phrase = getRandomPhraseAsArray(phrases)
     addPhraseToDisplay(phrase); 
 }
+
+
+const reset = () =>{
+    start.textContent = "Play Again"
+    start.addEventListener('click', ()=>{
+        missed = 0;
+        overlay.classList.remove('lost');
+        overlay.classList.remove('win');
+        phrase.removeChild(phaseUl);
+        
+        
+        
+        
+        
+    });
+ 
+}
+
+
 
 //Events
 
