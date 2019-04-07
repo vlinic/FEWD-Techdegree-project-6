@@ -59,16 +59,18 @@ const checkWin = () => {
     if (show.length === letter.length) {
         overlay.style.display = '';
         overlay.classList.add('win');
+        title[0].textContent = "You won";
         reset()
     } else if (missed >= 5) {
         overlay.style.display = '';
-        overlay.classList.add('lost');
+        overlay.classList.add('lose');
         title[0].textContent = "You Lost";
         reset();
     }
 }
 const newPhrase = () => {
     overlay.style.display = 'none';
+    overlay.className = '';
     const phrase = getRandomPhraseAsArray(phrases)
     addPhraseToDisplay(phrase);
 }
@@ -96,6 +98,7 @@ const reset = () => {
 start.addEventListener('click', newPhrase);
 
 qwerty.addEventListener('click', (e) => {
+
     if (e.target.tagName === 'BUTTON') {
         e.target.classList.add('chosen');
         e.target.disabled = true;
