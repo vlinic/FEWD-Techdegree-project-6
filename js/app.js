@@ -16,11 +16,11 @@ const title = document.getElementsByClassName('title');
 //Phrases
 
 const phrases = [
-    'just do it',
-    'impossible is nothing',
-    'give me everything',
-    'world is not enough',
-    'nothing else matters'
+    'Just do it',
+    'Impossible is nothing',
+    'Give me everything',
+    'World is not enough',
+    'Nothing else matters'
 ];
 
 //Functions
@@ -47,7 +47,7 @@ const addPhraseToDisplay = (arr) => {
 const checkLetter = (button) => {
     let match = null;
     for (let i = 0; i < letter.length; i++) {
-        if (button.textContent === letter[i].textContent) {
+        if (button.textContent.toLowerCase() === letter[i].textContent.toLowerCase()) {
             letter[i].classList.add('show');
             match = true;
         }
